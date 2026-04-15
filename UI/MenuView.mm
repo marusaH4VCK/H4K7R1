@@ -1,5 +1,15 @@
 #import "MenuView.h"
 
+UIWindow *getKeyWindow(void) {
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if (scene.activationState == UISceneActivationStateForegroundActive &&
+            [scene isKindOfClass:[UIWindowScene class]]) {
+            return [(UIWindowScene *)scene windows].firstObject;
+        }
+    }
+    return nil;
+}
+
 @interface MenuView ()
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *contentView;
@@ -16,8 +26,8 @@ static MenuView *sharedInstance = nil;
 + (instancetype)shared {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        CGRect screen = [UIScreen mainScreen].bounds;
-        sharedInstance = [[MenuView alloc] initWithFrame:CGRectMake(20, 80, 340, 480)];
+        CGRect screenBounds = [UIScreen mainScreen].bounds;
+        sharedInstance = [[MenuView alloc] initWithFrame:CGRectMake(20, 80, screenBounds.size.width - 40, screenBounds.size.height - 150)];
     });
     return sharedInstance;
 }
@@ -288,7 +298,7 @@ static MenuView *sharedInstance = nil;
 }
 
 - (void)show {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = getKeyWindow();
     if (window) {
         self.center = window.center;
         [window addSubview:self];
