@@ -4,15 +4,13 @@
 static MenuView *menu = nil;
 
 UIWindow *getKeyWindow(void) {
-    if (@available(iOS 13.0, *)) {
-        for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
-            if (scene.activationState == UISceneActivationStateForegroundActive &&
-                [scene isKindOfClass:[UIWindowScene class]]) {
-                return [(UIWindowScene *)scene windows].firstObject;
-            }
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if (scene.activationState == UISceneActivationStateForegroundActive &&
+            [scene isKindOfClass:[UIWindowScene class]]) {
+            return [(UIWindowScene *)scene windows].firstObject;
         }
     }
-    return [UIApplication sharedApplication].keyWindow;
+    return nil;
 }
 
 %ctor {
