@@ -1,0 +1,9 @@
+Package: com.zexisy.dekumenu
+Name: DEKU MENU
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: DEKU Mod Menu for Free Fire
+Maintainer: zexisy
+Author: zexisy
+Section: Tweaks
+Depends: mobilesubstrate
